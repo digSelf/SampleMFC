@@ -11,7 +11,7 @@
 
 CObject::CObject()
 {
-
+	
 }
 
 CObject::~CObject()

@@ -33,11 +33,12 @@
 
 
 # User Definition
-*.ncb
-*.positions
-*.plg
-*.aps
+StudyMFC/*.ncb
+StudyMFC/*.positions
+StudyMFC/*.plg
+StudyMFC/*.aps
 
-Debug/
-Release/
+StudyMFC/Debug/
+StudyMFC/Release/
+
 .git/
