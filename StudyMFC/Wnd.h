@@ -13,6 +13,7 @@
 
 class CWnd : public CCmdTarget  
 {
+	DECLARE_DYNAMIC(CWnd)
 public:
 	CWnd();
 	virtual ~CWnd();

@@ -13,6 +13,7 @@
 
 class CCmdTarget : public CObject  
 {
+	DECLARE_DYNAMIC(CCmdTarget);
 public:
 	CCmdTarget();
 	virtual ~CCmdTarget();

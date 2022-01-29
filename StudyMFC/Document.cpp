@@ -9,6 +9,8 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_RUNTIMECLASS(CDocument, CCmdTarget, 0, NULL)
+
 CDocument::CDocument()
 {
 

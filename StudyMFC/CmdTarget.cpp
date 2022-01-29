@@ -9,6 +9,8 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_RUNTIMECLASS(CCmdTarget, CObject, 0, NULL)
+
 CCmdTarget::CCmdTarget()
 {
 

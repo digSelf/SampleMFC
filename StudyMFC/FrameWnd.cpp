@@ -9,6 +9,8 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_RUNTIMECLASS(CFrameWnd, CWnd, 0, NULL)
+
 CFrameWnd::CFrameWnd()
 {
 

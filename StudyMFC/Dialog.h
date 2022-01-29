@@ -13,6 +13,7 @@
 
 class CDialog : public CWnd  
 {
+	DECLARE_DYNAMIC(CDialog)
 public:
 	CDialog();
 	virtual ~CDialog();

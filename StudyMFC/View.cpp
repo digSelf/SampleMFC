@@ -9,6 +9,8 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_RUNTIMECLASS(CView, CWnd, 0, NULL)
+
 CView::CView()
 {
 

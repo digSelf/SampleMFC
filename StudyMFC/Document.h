@@ -13,6 +13,7 @@
 
 class CDocument : public CCmdTarget  
 {
+	DECLARE_DYNAMIC(CDocument)
 public:
 	CDocument();
 	virtual ~CDocument();

@@ -12,6 +12,9 @@
 
 #include <Windows.h>
 
+// 自定义头文件区
+#include "AFX.h"
+
 #ifndef AFXAPI
 #define AFXAPI __stdcall
 #endif

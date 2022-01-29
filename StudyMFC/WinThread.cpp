@@ -10,9 +10,11 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_RUNTIMECLASS(CWinThread, CCmdTarget, 0, NULL)
+
 CWinThread::CWinThread()
 {
-	m_pCurrentWinThread = this;
+	// m_pCurrentWinThread = this;
 }
 
 CWinThread::~CWinThread()

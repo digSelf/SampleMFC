@@ -14,6 +14,7 @@
 
 class CUserApp : public CWinApp  
 {
+	DECLARE_DYNAMIC(CUserApp)
 public:
 	virtual BOOL InitInstance();
 	CUserApp();

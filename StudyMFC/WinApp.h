@@ -13,8 +13,21 @@
 
 class CWinApp : public CWinThread  
 {
+	DECLARE_DYNAMIC(CWinApp)
 public:
-	CWinApp();
+	// Constructor
+	CWinApp(LPCTSTR lpszAppName = NULL);     // app name defaults to EXE name
+	
+	// Attributes
+	// Startup args (do not change)
+	HINSTANCE m_hInstance;
+	HINSTANCE m_hPrevInstance;
+	LPTSTR m_lpCmdLine;
+	int m_nCmdShow;
+
+	// Running args (can be changed in InitInstance)
+	LPCTSTR m_pszAppName;  // human readable name
+public:
 	virtual ~CWinApp();
 	
 	CWinApp *m_pCurrentWinApp;
