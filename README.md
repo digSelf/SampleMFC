@@ -77,3 +77,9 @@ BOOL CRuntimeClass::IsDerivedFrom(const CRuntimeClass* pBaseClass) const
 }
 ```
 由于运行时类信息是唯一的，因此可以通过查找单向树并直接比较运行时类对象指针即可判断是否是由该类派生出来的完成动态类型识别。
+
+# 动态创建
+
+想要的效果是：`CreateObject(class_name)`就能返回对应类型的类对象指针
+
+编译选项中加入`/P`来观察预处理结果，可以看到宏的展开

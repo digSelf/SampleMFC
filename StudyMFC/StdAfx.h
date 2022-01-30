@@ -11,20 +11,13 @@
 #endif // _MSC_VER > 1000
 
 #include <Windows.h>
+#include <cstdio>
 
 // 自定义头文件区
 #include "AFX.h"
 
-#ifndef AFXAPI
-#define AFXAPI __stdcall
-#endif
-
 // TODO: reference additional headers your program requires here
-class CWinApp;
-class CWinThread;
 
-CWinApp* AFXAPI AfxGetApp();
-CWinThread* AFXAPI AfxGetThread();
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

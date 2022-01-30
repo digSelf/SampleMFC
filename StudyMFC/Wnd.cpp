@@ -9,7 +9,8 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_DYNAMIC(CWnd, CCmdTarget)
+// IMPLEMENT_DYNAMIC(CWnd, CCmdTarget)
+IMPLEMENT_DYNCREATE(CWnd, CCmdTarget)
 
 CWnd::CWnd()
 {
@@ -19,4 +20,9 @@ CWnd::CWnd()
 CWnd::~CWnd()
 {
 
+}
+
+void CWnd::SayHi()
+{
+	AfxMessageBox("Hi, This is Class CWnd.");
 }

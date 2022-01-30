@@ -11,7 +11,7 @@
 
 // 对于CObject类中的父类，暂时不能用RUNTIME_CLASS宏来替换，因为父类是要直接给NULL的
 // 暂时无法统一的
-const CRuntimeClass CObject::classCObject 
+CRuntimeClass CObject::classCObject 
 	 = { "CObject", sizeof(class CObject), 0, NULL, NULL, NULL };
 
 CRuntimeClass* CObject::GetRuntimeClass() const
