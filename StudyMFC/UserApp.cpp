@@ -22,6 +22,8 @@ CWinThread* AFXAPI AfxGetThread()
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_DYNAMIC(CUserApp, CWinApp)
+
 CUserApp::CUserApp()
 {
 

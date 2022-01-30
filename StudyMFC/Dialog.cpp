@@ -9,6 +9,8 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_DYNAMIC(CDialog, CCmdTarget)
+
 CDialog::CDialog()
 {
 

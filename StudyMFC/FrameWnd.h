@@ -13,6 +13,7 @@
 
 class CFrameWnd : public CWnd  
 {
+	DECLARE_DYNAMIC(CFrameWnd)
 public:
 	CFrameWnd();
 	virtual ~CFrameWnd();

@@ -9,6 +9,8 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_DYNAMIC(CFrameWnd, CWnd)
+
 CFrameWnd::CFrameWnd()
 {
 

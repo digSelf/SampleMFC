@@ -9,6 +9,8 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_DYNAMIC(CCmdTarget, CObject)
+
 CCmdTarget::CCmdTarget()
 {
 

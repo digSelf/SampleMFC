@@ -10,9 +10,11 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+IMPLEMENT_DYNAMIC(CWinThread, CCmdTarget)
+
 CWinThread::CWinThread()
 {
-	m_pCurrentWinThread = this;
+	// m_pCurrentWinThread = this;
 }
 
 CWinThread::~CWinThread()

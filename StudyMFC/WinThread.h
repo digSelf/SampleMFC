@@ -14,6 +14,7 @@
 
 class CWinThread : public CCmdTarget
 {
+	DECLARE_DYNAMIC(CWinThread)
 public:
 	CWinThread *m_pCurrentWinThread;
 public:

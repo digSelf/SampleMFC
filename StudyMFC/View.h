@@ -13,6 +13,7 @@
 
 class CView : public CWnd  
 {
+	DECLARE_DYNAMIC(CView)
 public:
 	CView();
 	virtual ~CView();
