@@ -22,7 +22,7 @@ CWinThread* AFXAPI AfxGetThread()
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_RUNTIMECLASS(CUserApp, CWinApp, 0, NULL)
+IMPLEMENT_DYNAMIC(CUserApp, CWinApp)
 
 CUserApp::CUserApp()
 {

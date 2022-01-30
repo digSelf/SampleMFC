@@ -9,7 +9,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_RUNTIMECLASS(CDocument, CCmdTarget, 0, NULL)
+IMPLEMENT_DYNAMIC(CDocument, CCmdTarget)
 
 CDocument::CDocument()
 {

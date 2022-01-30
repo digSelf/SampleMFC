@@ -9,7 +9,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_RUNTIMECLASS(CWnd, CCmdTarget, 0, NULL)
+IMPLEMENT_DYNAMIC(CWnd, CCmdTarget)
 
 CWnd::CWnd()
 {

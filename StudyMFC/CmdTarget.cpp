@@ -9,7 +9,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_RUNTIMECLASS(CCmdTarget, CObject, 0, NULL)
+IMPLEMENT_DYNAMIC(CCmdTarget, CObject)
 
 CCmdTarget::CCmdTarget()
 {

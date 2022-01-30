@@ -10,7 +10,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_RUNTIMECLASS(CWinThread, CCmdTarget, 0, NULL)
+IMPLEMENT_DYNAMIC(CWinThread, CCmdTarget)
 
 CWinThread::CWinThread()
 {

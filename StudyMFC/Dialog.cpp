@@ -9,7 +9,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_RUNTIMECLASS(CDialog, CCmdTarget, 0, NULL)
+IMPLEMENT_DYNAMIC(CDialog, CCmdTarget)
 
 CDialog::CDialog()
 {

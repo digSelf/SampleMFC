@@ -28,7 +28,8 @@ struct CRuntimeClass
 };
 
 // helper MACRO
-#define RUNTIME_CLASS(class_name) ((CRuntimeClass*)(&class_name::class##class_name))
+#define RUNTIME_CLASS(class_name) ((CRuntimeClass*)(&class_name::class##class_name))\
+
 // 声明静态数据成员及虚函数
 #define DECLARE_DYNAMIC(class_name) \
 public: \
@@ -40,6 +41,9 @@ const CRuntimeClass class_name::class##class_name = { \
 		#class_name, sizeof(class class_name), wSchema, pfnNew, \
 		RUNTIME_CLASS(base_class_name), NULL }; \
 CRuntimeClass* class_name::GetRuntimeClass() const \
-	{ return RUNTIME_CLASS(class_name); } \
+	{ return RUNTIME_CLASS(class_name); } 
+
+#define IMPLEMENT_DYNAMIC(class_name, base_class_name) \
+	IMPLEMENT_RUNTIMECLASS(class_name, base_class_name, 0xFFFF, NULL)
 
 #endif // !defined(AFX_AFX_H__0B495A02_2D1A_443F_A7B2_F8E6C8D44714__INCLUDED_)
