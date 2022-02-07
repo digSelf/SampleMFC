@@ -97,7 +97,7 @@ struct CRuntimeClass
 	// Attributes
 	LPCSTR m_lpszClassName;
 	int m_nObjectSize;
-	UINT m_wSchema; // schema number of the loaded class
+	UINT m_wSchema; // schema number of the loaded class，即：要加载类的版本号
 	CObject* (PASCAL* m_pfnCreateObject)(); // NULL => abstract class
 	CRuntimeClass* m_pBaseClass;
 	
@@ -208,3 +208,79 @@ CObject* CRuntimeClass::CreateObject()
 ```
 
 tip：编译选项中加入`/P`来观察预处理结果，可以看到宏的展开
+
+# 序列化
+MFC中的序列化是由`CDocument::OnFileSave`进行初始调用，最终调用到要序列化的类的`Serialize`函数中。
+
+## MFC中实现序列化的操作方法
+
+MFC中提供的序列化的方法的使用步骤为：
+1. 从`CObject`派生类（或从`CObject`派生的某个类派生）
+2. 重写`Serialize`成员函数
+3. 使用`DECLARE_SERIAL`宏（在类声明中）
+4. 定义不带参数的构造函数
+5. 为类在实现文件中使用`IMPLEMENT_SERIAL`宏。
+如果要在列表中实现序列化，要使用`CObList`。该类声明和实现了`>>`友元函数的重载。
+
+## MFC中序列化的文件格式
+1. 是否是新类的标记`nNewFlag`。如果是在哈希映射表中该类已经存在，则不用写运行时
+的类信息，只需要给定该类对应的编号即可；否则需要写入该类对应的运行时信息并加入到
+哈希映射表中。
+2. 写入要加载的类的版本号`wSchema`。随着以后的更新，对应的类可能会被改变，如果不记录
+版本的话，新版本加载旧版本的类的数据就会出现问题
+3. 写入类名的长度，并写入类名
+4. 调用自定义类的序列化虚函数`Serilaize`，实现自己的类的写入数据。
+
+## `CObList`中的自定义类的序列化调用流程
+
+由`CDocument::OnFileSave`函数进行初始调用，然后在要保存链表数据中调用`CObList::Serialize`
+函数。后续流程为在`CObList::Serialize`中的调用流程（调用层次）
+* 首先调用父类`CObject`的`Serialize`函数，即：`CObject::Serialize(CArchive& ar)`函数
+* 通过`ar.IsStoring()`判断是序列化还是反序列化
+	* 如果是序列化，则先写入元素列表中的个数，然后逐一调用链表中各元素的序列化函数
+	* 如果是反序列化，则进行反序列化操作
+
+对于列表的序列化的调用流程，最终会调用`CArchive`中重载的友元函数`<<`。该函数会调用`ar.WriteObject(pOb)`
+函数。在`CArchive::WriteObject`函数中的调用流程为：
+* 在映射表中查找是否已经存在该类的信息（防止对象信息重复写入）
+* 如果没有存在，则获取该类的类信息，并予以写入（`CArchive::WriteClass`），在进行去重（防止类信息重复写入）
+后，调用`CRuntimeClass::Store`函数，写入当前的运行时类信息。
+* 调用用户自定义类中的序列化函数`Serialize`
+
+# 文档视图结构
+
+类似于MVC结构，文档对应的是`Modal`；视图对应的是`View`；而框架相当于是`Controller`。
+
+## 视图的静态切分
+
+需要掌握的两个知识点是：
+1. 静态切分的设置与编码
+2. 视图的切换
+
+### 静态切分的步骤和编码
+
+静态节分的分割边栏由框架窗口进行管理最好，原因是：如果给视图去管理的话，则每次在视图切换后，导致不稳定。
+因此需要选择一个稳定一点的且对资源有分配权的对象进行管理是最好的，即：框架窗口。
+
+步骤：
+1. 在框架类中添加一个`CSplitterWnd`类型的成员变量`m_sptWnd`。
+2. 在虚函数`OnCreateClient`的时候，创建分割栏的时机最好。在该消息处理函数中，调用`m_sptWnd.CreateStatic(args)`
+函数（注意不能调用`m_sptWnd.Create(args)`，因为它是动态切分，只能有一个视图）创建分割窗口；调用`m_sptWnd.CreateView(args)`
+设置视图（MFC中的视图的本质就是一个没有边框的窗口）。注意在自定义视图时，应该将对话框的属性中的无边框和子窗口选中，
+才可以嵌入到视图中去。
+3. 屏蔽掉`OnCreateClient`函数中调用默认的创建客户区函数（因为默认的创建客户区函数会将主视图显示到最顶层，从而覆盖掉我们自己的），
+直接返回`TRUE`
+
+上述步骤来自于`msdn`中的`CSplitterWnd::CreateStatic`的备注部分。其中：
+* 参数`nID`指的是当前静态分割窗口要出现的位置的id，通过`CSplitterWnd::IdFromRowCol(args)`来获取这个面板的id
+* 多栏分割时，创建第一个分栏窗口时，将主视图绑定到当前的分割栏窗口上；其他分割栏以第一个分割栏做父窗口即可，即：分割窗口的嵌套。
+或者如果创建第一个分割栏窗口时不指定主视图，则可以通过`CSplitterWnd::SetColumnInfo(args)`设置列信息，从而设置列宽等信息。
+
+### 视图的切分
+
+`CDocument::UpdateAllViews(args)`可以通知所有的视图进行数据更新，其他视图会接收到`WM_UPDATE`消息通知，在`CView::OnUpdate`事件中
+进行数据更新的处理。
+
+在`CView`中的一个成员变量`m_pDocument`记录了这个视图所关联的文档，可以通过这个变量来访问对应的文档中的数据。或者调用`GetDocument`
+函数获取指向与视图关联的文档对象的指针
+

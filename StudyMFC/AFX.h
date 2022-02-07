@@ -38,13 +38,12 @@ struct CRuntimeClass
 // 	void Store(CArchive& ar) const;
 // 	static CRuntimeClass* PASCAL Load(CArchive& ar, UINT* pwSchemaNum);
 	static CRuntimeClass* PASCAL Load(LPCSTR lpszClassName);
-	
-	// CRuntimeClass objects linked together in simple list
-	CRuntimeClass* m_pNextClass;       // linked list of registered classes
 
 	// 添加静态数据成员，由于其优先于WinMain函数执行前进行初始化，因此可以在WinMain前就构造好一条单链表
 	// 与m_pNextClass进行配合构成一个已经注册了类的单链表，用以动态类型创建
 	// 但是需要注意，取消掉之前动态类型识别时使用的const限制，最好是自己构造一个单向链表类和一个管理该链表的对象来做
+	// CRuntimeClass objects linked together in simple list
+	CRuntimeClass* m_pNextClass;       // linked list of registered classes
 	static CRuntimeClass *m_pHeadNode;
 };
 
